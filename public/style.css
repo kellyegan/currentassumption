@@ -24,13 +24,13 @@ body {
   max-width: 1024px;
 }
 
-.current-assumption {
+.current-assumption .content{
   margin: 0;
   padding: 0;
   font-size: 2.5em;
 }
 
-.date {
+.current-assumption .date {
   text-align: right;
 }
 
