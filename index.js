@@ -23,8 +23,14 @@ app.use(function (request, response, next) {
 
 app.use(express.static('public'));
 
+//Return recent assumptions
 app.get("/assumptions", function (request, response) {
   response.json(assumptions);
+});
+
+//Add a new assumption
+app.post("/assumptions", function (request, response) {
+  console.log("Post request received.");
 });
 
 app.listen(3000, function () {

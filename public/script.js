@@ -2,6 +2,15 @@ $(document).ready(function () {
   $.getJSON('/assumptions', function (assumptions) {
     nextAssumption(assumptions, 0);
   });
+
+  $("form").submit(function (e) {
+    e.preventDefault();
+    $.post("/assumptions", {assumption: $("#assumption").val()}, function () {
+      console.log("Posted.");
+    });
+    this.reset();
+  });
+
 });
 
 //Increment assumptions array and show next assumption
@@ -19,7 +28,6 @@ function nextAssumption(assumptions, index) {
 function setAssumption(assumption, element) {
   var d = new Date(assumption.date);
   element.children(".content").text(assumption.assumption);
-  //element.children(".date").text(d.toLocaleDateString());
   element.children(".date").text(formatDate( d ));
 }
 
