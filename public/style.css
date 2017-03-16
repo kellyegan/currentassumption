@@ -24,6 +24,10 @@ body {
   max-width: 1024px;
 }
 
+.current-assumption {
+  max-width: 1024px;
+}
+
 .current-assumption .content{
   margin: 0;
   padding: 0;
@@ -34,11 +38,13 @@ body {
   text-align: right;
 }
 
-.current-assumption input {
-
-}
 
 header, footer {
   text-align: right;
   width: 100%;
+}
+
+footer {
+  position: relative;
+  margin-bottom: 20px;
 }
