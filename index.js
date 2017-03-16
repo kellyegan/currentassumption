@@ -1,20 +1,24 @@
 /*jslint node:true */
 
 var express = require('express');
+var bodyParser = require('body-parser');
 var app = express();
 
 var assumptions = [
   {
-    assumption: "Change is inevitable.",
     date: "2017-03-16T00:48:08.307Z",
+    assumption: "Change is inevitable.",
     author: "kellyegan"
   },
   {
-    assumption: "Uncertainty is certain.",
     date: "2017-03-16T00:50:01.706Z",
+    assumption: "Uncertainty is certain.",
     author: "kellyegan"
   }
 ];
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
 
 app.use(function (request, response, next) {
   console.log(`${request.method} request for '${request.url}'`);
@@ -30,7 +34,12 @@ app.get("/assumptions", function (request, response) {
 
 //Add a new assumption
 app.post("/assumptions", function (request, response) {
-  console.log("Post request received.");
+  assumptions.push({
+    date: new Date().toJSON(),
+    assumption: request.body.assumption,
+    author: "anonymous"
+  });
+  response.json(assumptions);
 });
 
 app.listen(3000, function () {
