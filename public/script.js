@@ -1,6 +1,7 @@
 $(document).ready(function () {
   $.getJSON('/assumptions', function (assumptions) {
-    nextAssumption(assumptions, 0);
+    $(".current-assumption").fadeOut(1);
+    nextAssumption(assumptions, 0, $(".current-assumption"));
   });
 
   $("form").submit(function (e) {
@@ -13,21 +14,24 @@ $(document).ready(function () {
 
 });
 
-//Increment assumptions array and show next assumption
-function nextAssumption(assumptions, index) {
-  index = (index + 1) % assumptions.length;
-  $(".current-assumption").fadeOut(1500, function (){
-    setAssumption( assumptions[index], $(this) );
+function nextAssumption(assumptions, index, container) {
+  var currentAssumption = assumptions[index];
+  setAssumption( currentAssumption, container );
 
-    $(this).fadeIn(1200).delay(6000);
-    nextAssumption( assumptions, index );
+  var wordCount = currentAssumption.content.split(" ").length;
+  var readingTime = 500 + wordCount * 60 * 1000 / 180;
+
+  container.fadeIn(1200).delay(readingTime);
+  container.fadeOut(1500, function () {
+    index = (index + 1) % assumptions.length;
+    nextAssumption( assumptions, index, container );
   });
 }
 
 //Set assumption text from assumption objects
 function setAssumption(assumption, element) {
   var d = new Date(assumption.date);
-  element.children(".content").text(assumption.assumption);
+  element.children(".content").text(assumption.content);
   element.children(".date").text(formatDate( d ));
 }
 

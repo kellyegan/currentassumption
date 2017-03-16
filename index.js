@@ -7,12 +7,12 @@ var app = express();
 var assumptions = [
   {
     date: "2017-03-16T00:48:08.307Z",
-    assumption: "Change is inevitable.",
+    content: "Change is inevitable.",
     author: "kellyegan"
   },
   {
     date: "2017-03-16T00:50:01.706Z",
-    assumption: "Uncertainty is certain.",
+    content: "Uncertainty is certain.",
     author: "kellyegan"
   }
 ];
@@ -36,7 +36,7 @@ app.get("/assumptions", function (request, response) {
 app.post("/assumptions", function (request, response) {
   assumptions.push({
     date: new Date().toJSON(),
-    assumption: request.body.assumption,
+    content: request.body.assumption,
     author: "anonymous"
   });
   response.json(assumptions);
